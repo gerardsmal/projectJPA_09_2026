@@ -28,6 +28,4 @@ public class Certificato {
 	@Column (name="data_certificato")
 	private LocalDate dataCerticifato;
 	
-	@OneToOne (mappedBy = "certificato")
-	private Socio socio;
 }

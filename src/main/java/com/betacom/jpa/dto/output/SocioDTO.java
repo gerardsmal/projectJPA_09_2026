@@ -1,5 +1,7 @@
 package com.betacom.jpa.dto.output;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,5 +22,6 @@ public class SocioDTO {
 	private String codiceFiascale;;
 	private String email;
 	private CertificatoDTO certificato;
+	private List<AbbonamentoDTO> abbonamento;
 
 }

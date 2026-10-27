@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString
 public class CertificatoDTO {
 	private Integer id;
-	private String tipo;  // false normale true agonistico
+	private String tipo;  // false normale true agonistico  
 	private LocalDate dataCerticifato;
 
 }

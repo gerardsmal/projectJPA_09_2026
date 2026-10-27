@@ -9,7 +9,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Builder
 @ToString
 public class CertificatoReq {
 	private Boolean tipo;  // false normale true agonistico

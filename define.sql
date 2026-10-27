@@ -1,4 +1,12 @@
 
+    create table abbonamento_socio (
+        data_abbonamento date not null,
+        durata_abbonamento integer not null,
+        id integer not null auto_increment,
+        id_socio integer,
+        primary key (id)
+    ) engine=InnoDB;
+
     create table `certificato medico` (
         data_certificato date,
         id integer not null auto_increment,
@@ -21,6 +29,11 @@
 
     alter table socio_palestra 
        add constraint UKkomp5csel946vm6jyxq537rae unique (codice_fiscale);
+
+    alter table abbonamento_socio 
+       add constraint FK22uaw7830fw71duo88vg10i3m 
+       foreign key (id_socio) 
+       references socio_palestra (id);
 
     alter table socio_palestra 
        add constraint FK6vuimd1p9npmb28l93wouo0rn 

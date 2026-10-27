@@ -21,7 +21,6 @@ public class ProjectJpaApplication {
 		SpringApplication.run(ProjectJpaApplication.class, args);
 	}
 	
-	@Bean
 	CommandLineRunner startup() {
 		return args -> {
 			log.debug("Start ProjectJpaApplication ***");
@@ -30,9 +29,9 @@ public class ProjectJpaApplication {
 			//pr.setCertificato();
 			//pr.listSocio();
 			//pr.updatSocio();
-			pr.deleteSocio();
+			//pr.deleteSocio();
 			//pr.setCertificato();
-			pr.listSocio();
+			//pr.listSocio();
 		};
 
 	}

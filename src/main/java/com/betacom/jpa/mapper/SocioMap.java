@@ -20,6 +20,7 @@ public class SocioMap {
 						.dataCerticifato(s.getCertificato().getDataCerticifato())
 						.tipo(s.getCertificato().getTipo() ? "agonistico" : "normale")
 						.build())
+				.abbonamento(AbbonamentoMap.buildAbbonamentoDTO(s.getAbbonamento()))
 				.build();
 	}
 	

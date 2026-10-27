@@ -8,7 +8,6 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-@Builder
 public class SocioReq {
 	private Integer id;
 	private String cognome;
