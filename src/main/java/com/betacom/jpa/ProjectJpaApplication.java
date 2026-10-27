@@ -27,7 +27,11 @@ public class ProjectJpaApplication {
 			log.debug("Start ProjectJpaApplication ***");
 			//pr.createSocio();
 			//pr.listSocio();
-			pr.setCertificato();
+			//pr.setCertificato();
+			//pr.listSocio();
+			//pr.updatSocio();
+			pr.deleteSocio();
+			//pr.setCertificato();
 			pr.listSocio();
 		};
 

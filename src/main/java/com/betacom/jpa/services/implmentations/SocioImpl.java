@@ -1,8 +1,10 @@
 package com.betacom.jpa.services.implmentations;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.betacom.jpa.dto.input.SocioReq;
 import com.betacom.jpa.dto.output.SocioDTO;
@@ -22,30 +24,49 @@ public class SocioImpl implements ISocioServices{
 
 	private final ISocioRepository socioR;
 
+	@Transactional
 	@Override
 	public void create(SocioReq req) throws Exception {
 		log.debug("create ()", req);
-		if (socioR.existsByCodiceFiscale(req.getCodiceFiascale()))
+		if (socioR.existsByCodiceFiscale(req.getCodiceFiscale()))
 			throw new AcademyException("codice fiscale presente in DB");
 		
 		Socio soc = new Socio();
-		soc.setCodiceFiscale(req.getCodiceFiascale());
+		soc.setCodiceFiscale(req.getCodiceFiscale());
 		soc.setCognome(req.getCognome());
 		soc.setEmail(req.getEmail());
 		soc.setNome(req.getNome());
 		socioR.save(soc);
 	}
 
+	@Transactional
 	@Override
 	public void update(SocioReq req) throws Exception {
-		// TODO Auto-generated method stub
+		log.debug("update {}", req);
+		Socio soc = socioR.findById(req.getId())
+				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+			
+		if (req.getCodiceFiscale() != null && !req.getCodiceFiscale().equalsIgnoreCase(soc.getCodiceFiscale())) {
+			if (socioR.existsByCodiceFiscale(req.getCodiceFiscale()))
+				throw new AcademyException("codice fiscale presente in DB");
+			soc.setCodiceFiscale(req.getCodiceFiscale());
+		}
+		
+		if (req.getCognome() != null) soc.setCognome(req.getCognome());
+		if (req.getNome() != null) soc.setNome(req.getNome());		
+		if (req.getEmail() != null) soc.setEmail(req.getEmail());
+		socioR.save(soc);
 		
 	}
 
+	@Transactional
 	@Override
 	public void delete(Integer id) throws Exception {
-		// TODO Auto-generated method stub
+		log.debug("delete {}", id);
+		Socio soc = socioR.findById(id)
+				.orElseThrow(() -> new AcademyException("Socio non trovato"));
 		
+		socioR.delete(soc);
 	}
 
 	@Override

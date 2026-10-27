@@ -1,6 +1,7 @@
 package com.betacom.jpa.services.implmentations;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.betacom.jpa.dto.input.CertificatoReq;
 import com.betacom.jpa.exceptions.AcademyException;
@@ -20,6 +21,7 @@ public class CertificatoImpl implements ICertificatoServices{
 	private final ICertificatoRepository cerR;
 	private final ISocioRepository socioR;
 	
+	@Transactional
 	@Override
 	public void updateCertificato(CertificatoReq req) throws Exception {
 		log.debug("Begin updateCertificato {}",req);

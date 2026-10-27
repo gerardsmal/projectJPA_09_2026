@@ -29,24 +29,41 @@ public class ProcessJPA {
 			socioS.create(SocioReq.builder()
 					.nome("Paolo")
 					.cognome("Verde")
-					.codiceFiascale("111111111")
+					.codiceFiscale("111111111")
 					.email("v@tin.it")
 					.build());
 			
 			socioS.create(SocioReq.builder()
 					.nome("Anna")
 					.cognome("Bianca")
-					.codiceFiascale("222222222")
+					.codiceFiscale("222222222")
 					.email("b@tin.it")
 					.build());
 
 			socioS.create(SocioReq.builder()
 					.nome("Giuseppe")
 					.cognome("Nero")
-					.codiceFiascale("33333333")
+					.codiceFiscale("33333333")
 					.email("n@tin.it")
 					.build());
 
+			
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+	}
+	
+public void createSocio1() {
+		
+		log.debug("Create Socio ...");
+		try {
+			socioS.create(SocioReq.builder()
+					.nome("Paolo")
+					.cognome("Verde")
+					.codiceFiscale("111111111")
+					.email("v@tin.it")
+					.build());
+			
 			
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -68,11 +85,34 @@ public class ProcessJPA {
 			certifS.updateCertificato(CertificatoReq.builder()
 					.dataCerticifato(LocalDate.parse("2026-09-15"))
 					.tipo(true)
-					.socioID(4)
+					.socioID(7)
 					.build());
 		} catch (Exception e) {
 			log.error("Errore in aggiornamento certificato {}", e.getMessage());
 		}
 	}
 
+	public void updatSocio() {
+		try {
+			socioS.update(SocioReq.builder()
+					.id(5)
+					.nome("Alice")
+					.codiceFiscale("33333333")
+					.build()
+					);
+		} catch (Exception e) {
+			log.error("Errore in aggiornamento socio {}", e.getMessage());
+		}
+			
+	}
+	
+	public void deleteSocio() {
+		try {
+			socioS.delete(7);
+		} catch (Exception e) {
+			log.error("Errore in delete socio {}", e.getMessage());
+		}
+			
+	}
+	
 }

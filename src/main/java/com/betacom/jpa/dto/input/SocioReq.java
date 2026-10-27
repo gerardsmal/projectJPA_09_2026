@@ -13,7 +13,7 @@ public class SocioReq {
 	private Integer id;
 	private String cognome;
 	private String nome;
-	private String codiceFiascale;;
+	private String codiceFiscale;;
 	private String email;
 
 }
