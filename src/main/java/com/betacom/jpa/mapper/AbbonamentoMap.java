@@ -18,6 +18,7 @@ public class AbbonamentoMap {
 				.id(a.getId())
 				.dataAbbonamento(a.getDataAbbonamento())
 				.durataAbbonamento(a.getDurataAbbonamento())
+				.attivita(AttivitaMap.buildAttivitaDTOList(a.getAttivita()))
 				.build();
 	}
 }

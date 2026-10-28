@@ -14,5 +14,7 @@ public class AbbonamentoReq {
 	private LocalDate dataAbbonamento;
 	private Integer durataAbbonamento;
 	private Integer socioID;
+	private Integer attivitaID;
+	
 
 }

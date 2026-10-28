@@ -11,5 +11,7 @@ public interface IAbbonamentoServices {
 	void update(AbbonamentoReq req) throws Exception;
 	void delete(Integer abbonamentoID, Integer socioID) throws Exception;
 	
+	void createAbbonamentoAttivita(AbbonamentoReq req) throws Exception;
+	
 	List<AbbonamentoDTO> listBySocio(Integer socioId)  throws Exception;
 }

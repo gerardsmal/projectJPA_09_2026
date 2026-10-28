@@ -8,8 +8,10 @@ import com.betacom.jpa.dto.input.AbbonamentoReq;
 import com.betacom.jpa.dto.output.AbbonamentoDTO;
 import com.betacom.jpa.exceptions.AcademyException;
 import com.betacom.jpa.models.Abbonamento;
+import com.betacom.jpa.models.Attivita;
 import com.betacom.jpa.models.Socio;
 import com.betacom.jpa.repositories.IAbbonamentoRepository;
+import com.betacom.jpa.repositories.IAttivitaRepository;
 import com.betacom.jpa.repositories.ISocioRepository;
 import com.betacom.jpa.services.interfaces.IAbbonamentoServices;
 
@@ -24,6 +26,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	
 	private final IAbbonamentoRepository abbR;
 	private final ISocioRepository       socR;
+	private final IAttivitaRepository    attR;
 	
 	@Transactional
 	@Override
@@ -76,6 +79,24 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	public List<AbbonamentoDTO> listBySocio(Integer socioId) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void createAbbonamentoAttivita(AbbonamentoReq req) throws Exception {
+		log.debug("createAbbonamentoAttivita : {}", req);
+		
+		Abbonamento abb = abbR.findById(req.getId())
+				.orElseThrow(() -> new AcademyException("Abbonamento non trovato"));
+		
+		Attivita attiv = attR.findById(req.getAttivitaID())
+				.orElseThrow(() -> new AcademyException("Attivita non trovata"));
+		
+		if (abb.getAttivita().contains(attiv))
+			throw new AcademyException("Attivita già inserita nell'abonamento");
+		
+		abb.getAttivita().add(attiv);
+		abbR.save(abb);
+		
 	}
 
 }

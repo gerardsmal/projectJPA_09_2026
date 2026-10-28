@@ -73,4 +73,18 @@ public class AbbonamentoController {
 		return ResponseEntity.status(status).body(r);
 	}
 
+	@PostMapping("createAbbonamentoAttivita")
+	public ResponseEntity<ResponseDTO> createAbbonamentoAttivita(@RequestBody AbbonamentoReq req){
+		ResponseDTO r = new ResponseDTO();
+		HttpStatus status = HttpStatus.CREATED;		
+		try {
+			abbS.createAbbonamentoAttivita(req);
+			r.setMsg("create sucessfull");
+		} catch (Exception e) {
+			log.error("Error {}", e.getMessage());
+			status = HttpStatus.BAD_REQUEST;
+			r.setMsg(e.getMessage());
+		}
+		return ResponseEntity.status(status).body(r);
+	}
 }
