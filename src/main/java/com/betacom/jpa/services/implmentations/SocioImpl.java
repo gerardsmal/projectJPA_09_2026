@@ -74,6 +74,22 @@ public class SocioImpl implements ISocioServices{
 		List<Socio> lS = socioR.findAll();
 		return SocioMap.buildSocioDTO(lS);
 	}
+
+	@Override
+	public List<SocioDTO> listByCognome(String cognome) throws Exception {
+		log.debug("listByCognome {}", cognome);
+		List<Socio> lS = socioR.searchByCognome(cognome);
+		
+		return SocioMap.buildSocioDTO(lS);
+	}
+
+	@Override
+	public List<SocioDTO> listByAttivita(Integer attivitaID) throws Exception {
+		log.debug("listByAttivita {}", attivitaID);
+		List<Socio> lS = socioR.selectByAttivita(attivitaID);
+		
+		return SocioMap.buildSocioDTO(lS);
+	}
 	
 
 }

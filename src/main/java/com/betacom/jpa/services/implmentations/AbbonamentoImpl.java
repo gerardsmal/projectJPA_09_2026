@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.betacom.jpa.dto.input.AbbonamentoReq;
 import com.betacom.jpa.dto.output.AbbonamentoDTO;
 import com.betacom.jpa.exceptions.AcademyException;
+import com.betacom.jpa.mapper.AbbonamentoMap;
 import com.betacom.jpa.models.Abbonamento;
 import com.betacom.jpa.models.Attivita;
 import com.betacom.jpa.models.Socio;
@@ -77,8 +78,10 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 
 	@Override
 	public List<AbbonamentoDTO> listBySocio(Integer socioId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("listBySocio {}", socioId);
+		Socio soc = socR.findById(socioId)
+				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+		return AbbonamentoMap.buildAbbonamentoDTO(soc.getAbbonamento());
 	}
 
 	@Override
@@ -97,6 +100,19 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 		abb.getAttivita().add(attiv);
 		abbR.save(abb);
 		
+	}
+
+	@Override
+	public void deleteAbbonamentoAttivita(Integer abbonamentoId, Integer attivitaID) throws Exception {
+		log.debug("deleteAbbonamentoAttivita {} / {}", abbonamentoId, attivitaID);
+		Abbonamento abb = abbR.findById(abbonamentoId)
+				.orElseThrow(() -> new AcademyException("Abbonamento non trovato"));
+		
+		abb.getAttivita().stream()
+			.filter(a -> a.getId().equals(attivitaID))
+			.findFirst()
+			.ifPresent(abb.getAttivita() :: remove);
+		abbR.save(abb);
 	}
 
 }
