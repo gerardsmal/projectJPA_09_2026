@@ -34,7 +34,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	public void create(AbbonamentoReq req) throws Exception {
 		log.debug("create {}", req);
 		Socio soc = socR.findById(req.getSocioID())
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		Abbonamento abb = new Abbonamento();
 		abb.setDataAbbonamento(req.getDataAbbonamento());
 		abb.setDurataAbbonamento(req.getDurataAbbonamento() == null ? 6 : req.getDurataAbbonamento());
@@ -48,12 +48,12 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	public void update(AbbonamentoReq req) throws Exception {
 		log.debug("update {}", req);
 		Socio soc = socR.findById(req.getSocioID())
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		
 		Abbonamento abb = soc.getAbbonamento().stream()
 				.filter(a -> a.getId().equals(req.getId()))
 				.findFirst()
-				.orElseThrow(() -> new AcademyException("Abbonamento non trovato per il socio "));
+				.orElseThrow(() -> new AcademyException("abb-socio-ntfnd"));
 		
 		if (req.getDataAbbonamento() != null) abb.setDataAbbonamento(req.getDataAbbonamento());
 		if (req.getDurataAbbonamento() != null) abb.setDurataAbbonamento(req.getDurataAbbonamento());
@@ -66,12 +66,12 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	public void delete(Integer abbonamentoID, Integer socioID) throws Exception {
 		log.debug("delete {} / {}", abbonamentoID, socioID);
 		Socio soc = socR.findById(socioID)
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		
 		Abbonamento abb = soc.getAbbonamento().stream()
 				.filter(a -> a.getId().equals(abbonamentoID))
 				.findFirst()
-				.orElseThrow(() -> new AcademyException("Abbonamento non trovato per il socio "));
+				.orElseThrow(() -> new AcademyException("abb-socio-ntfnd"));
 		abbR.delete(abb);
 		
 	}
@@ -80,7 +80,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	public List<AbbonamentoDTO> listBySocio(Integer socioId) throws Exception {
 		log.debug("listBySocio {}", socioId);
 		Socio soc = socR.findById(socioId)
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		return AbbonamentoMap.buildAbbonamentoDTO(soc.getAbbonamento());
 	}
 
@@ -89,13 +89,13 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 		log.debug("createAbbonamentoAttivita : {}", req);
 		
 		Abbonamento abb = abbR.findById(req.getId())
-				.orElseThrow(() -> new AcademyException("Abbonamento non trovato"));
+				.orElseThrow(() -> new AcademyException("abb-not-fnd"));
 		
 		Attivita attiv = attR.findById(req.getAttivitaID())
-				.orElseThrow(() -> new AcademyException("Attivita non trovata"));
+				.orElseThrow(() -> new AcademyException("abb-attiv-ntfnd"));
 		
 		if (abb.getAttivita().contains(attiv))
-			throw new AcademyException("Attivita già inserita nell'abonamento");
+			throw new AcademyException("abb-attiv-exist");
 		
 		abb.getAttivita().add(attiv);
 		abbR.save(abb);
@@ -106,7 +106,7 @@ public class AbbonamentoImpl implements IAbbonamentoServices{
 	public void deleteAbbonamentoAttivita(Integer abbonamentoId, Integer attivitaID) throws Exception {
 		log.debug("deleteAbbonamentoAttivita {} / {}", abbonamentoId, attivitaID);
 		Abbonamento abb = abbR.findById(abbonamentoId)
-				.orElseThrow(() -> new AcademyException("Abbonamento non trovato"));
+				.orElseThrow(() -> new AcademyException("abb-not-fnd"));
 		
 		abb.getAttivita().stream()
 			.filter(a -> a.getId().equals(attivitaID))

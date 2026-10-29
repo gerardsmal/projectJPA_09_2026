@@ -27,7 +27,7 @@ public class CertificatoImpl implements ICertificatoServices{
 		log.debug("Begin updateCertificato {}",req);
 		
 		Socio soc = socioR.findById(req.getSocioID())
-				.orElseThrow(() -> new AcademyException("Socio non travato in DB"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		
 		Certificato cer = null;
 		if (soc.getCertificato() == null) {

@@ -5,5 +5,6 @@ public interface ValidationGroup {
 	
 	interface Update {}
 	
+	interface Attivita {}	
 
 }
