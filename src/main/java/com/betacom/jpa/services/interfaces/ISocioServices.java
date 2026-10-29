@@ -10,7 +10,8 @@ public interface ISocioServices {
 	void update(SocioReq req) throws Exception;
 	void delete(Integer id) throws Exception;
 	
-	List<SocioDTO> list() throws Exception;
+	List<SocioDTO> list(Integer id, String nome, String cognome, Integer attivita) throws Exception;
+
 	List<SocioDTO>  listByCognome(String cognome) throws Exception;
 	List<SocioDTO>  listByAttivita(Integer attivitaID) throws Exception;
 }

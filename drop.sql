@@ -23,4 +23,6 @@
 
     drop table if exists `certificato medico`;
 
+    drop table if exists messaggi_systema;
+
     drop table if exists socio_palestra;

@@ -12,6 +12,7 @@ import com.betacom.jpa.exceptions.AcademyException;
 import com.betacom.jpa.mapper.SocioMap;
 import com.betacom.jpa.models.Socio;
 import com.betacom.jpa.repositories.ISocioRepository;
+import com.betacom.jpa.services.interfaces.IMessaggioServices;
 import com.betacom.jpa.services.interfaces.ISocioServices;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class SocioImpl implements ISocioServices{
 	public void create(SocioReq req) throws Exception {
 		log.debug("create ()", req);
 		if (socioR.existsByCodiceFiscale(req.getCodiceFiscale()))
-			throw new AcademyException("codice fiscale presente in DB");
+			throw new AcademyException("cfisc-fnd");
 		
 		Socio soc = new Socio();
 		soc.setCodiceFiscale(req.getCodiceFiscale());
@@ -44,11 +45,11 @@ public class SocioImpl implements ISocioServices{
 	public void update(SocioReq req) throws Exception {
 		log.debug("update {}", req);
 		Socio soc = socioR.findById(req.getId())
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 			
 		if (req.getCodiceFiscale() != null && !req.getCodiceFiscale().equalsIgnoreCase(soc.getCodiceFiscale())) {
 			if (socioR.existsByCodiceFiscale(req.getCodiceFiscale()))
-				throw new AcademyException("codice fiscale presente in DB");
+				throw new AcademyException("cfisc-fnd");
 			soc.setCodiceFiscale(req.getCodiceFiscale());
 		}
 		
@@ -64,21 +65,23 @@ public class SocioImpl implements ISocioServices{
 	public void delete(Integer id) throws Exception {
 		log.debug("delete {}", id);
 		Socio soc = socioR.findById(id)
-				.orElseThrow(() -> new AcademyException("Socio non trovato"));
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		
 		socioR.delete(soc);
 	}
 
 	@Override
-	public List<SocioDTO> list() throws Exception {
-		List<Socio> lS = socioR.findAll();
+	public List<SocioDTO> list (Integer id, String nome, String cognome, Integer attivita) throws Exception {
+		log.debug("list :{} / {} / {} / {}", id, nome, cognome, attivita);
+		List<Socio> lS = socioR.searchByFilter(id, nome, cognome, attivita);
 		return SocioMap.buildSocioDTO(lS);
 	}
 
 	@Override
 	public List<SocioDTO> listByCognome(String cognome) throws Exception {
 		log.debug("listByCognome {}", cognome);
-		List<Socio> lS = socioR.searchByCognome(cognome);
+//		List<Socio> lS = socioR.searchByCognome(cognome);
+		List<Socio> lS = socioR.findByCognomeStartingWith(cognome);
 		
 		return SocioMap.buildSocioDTO(lS);
 	}

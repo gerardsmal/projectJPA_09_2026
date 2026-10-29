@@ -26,6 +26,13 @@
         primary key (id)
     ) engine=InnoDB;
 
+    create table messaggi_systema (
+        lang varchar(4) not null,
+        code varchar(20) not null,
+        messaggio varchar(255),
+        primary key (lang, code)
+    ) engine=InnoDB;
+
     create table socio_palestra (
         certificato_id integer,
         id integer not null auto_increment,
