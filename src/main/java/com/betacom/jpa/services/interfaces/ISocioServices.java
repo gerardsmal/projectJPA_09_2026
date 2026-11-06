@@ -14,4 +14,5 @@ public interface ISocioServices {
 
 	List<SocioDTO>  listByCognome(String cognome) throws Exception;
 	List<SocioDTO>  listByAttivita(Integer attivitaID) throws Exception;
+	SocioDTO getById(Integer id) throws Exception;
 }

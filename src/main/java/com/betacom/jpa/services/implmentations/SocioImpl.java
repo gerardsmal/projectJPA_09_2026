@@ -93,6 +93,14 @@ public class SocioImpl implements ISocioServices{
 		
 		return SocioMap.buildSocioDTO(lS);
 	}
+
+	@Override
+	public SocioDTO getById(Integer id) throws Exception {
+		log.debug("getById {}", id);
+		Socio soc = socioR.findById(id)
+				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
+		return SocioMap.buildSocioDTO(soc);
+	}
 	
 
 }

@@ -38,6 +38,13 @@ public class SocioController {
 		return ResponseEntity.ok(socioS.list(id, nome, cognome, attivita));
 	}
 	
+	@GetMapping("/getById")
+	public ResponseEntity<Object> getById(@RequestParam Integer id)
+			throws Exception{
+
+		return ResponseEntity.ok(socioS.getById(id));
+	}
+
 	@GetMapping("/listByCognome")
 	public ResponseEntity<Object> listByCognome(@RequestParam String cognome)
 			throws Exception{

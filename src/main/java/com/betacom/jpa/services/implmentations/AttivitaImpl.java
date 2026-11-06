@@ -26,15 +26,12 @@ public class AttivitaImpl implements IAttivitaServices{
 	@Override
 	public void create(AttivitaReq req) throws Exception {
 		if (attivR.existsByDescrizione(req.getDescrizione().trim().toUpperCase()))
-			throw new AcademyException("Attivita presente nel db");
+			throw new AcademyException("attiv-exist");
 		Attivita at = new Attivita();
 
-		at.setDescrizione(Optional.ofNullable(req.getDescrizione().trim().toUpperCase())
-				.orElseThrow(() -> new AcademyException("Descrizione attività non presente")));
-
-		at.setPrezzo(Optional.ofNullable(req.getPrezzo())
-				.orElseThrow(() -> new AcademyException("Prezzo attivita non caricato")));
-
+		at.setDescrizione(req.getDescrizione().trim().toUpperCase());
+		at.setPrezzo(req.getPrezzo());
+	
 		attivR.save(at);
 		
 	}
@@ -43,14 +40,14 @@ public class AttivitaImpl implements IAttivitaServices{
 	public void update(AttivitaReq req) throws Exception {
 		log.debug("update {}", req);
 		Attivita at = attivR.findById(req.getId())
-				.orElseThrow(() -> new AcademyException("Attivita non trovata"));
+				.orElseThrow(() -> new AcademyException("attiv-ntfnd"));
 		
 		Optional.ofNullable(req.getDescrizione())
 	    	.map(d -> d.trim().toUpperCase())
 	    	.filter(d -> !d.equals(at.getDescrizione()))
 	    	.ifPresent(d -> {
 	    		if (attivR.existsByDescrizione(d)) {
-	    			throw new AcademyException("Attivita presente nel db");
+	    			throw new AcademyException("attiv-exis");
 	    		}
 	    		at.setDescrizione(d);
 	    });
@@ -65,9 +62,9 @@ public class AttivitaImpl implements IAttivitaServices{
 	public void delete(Integer attivitaID) throws Exception {
 		log.debug("delete {}", attivitaID);
 		Attivita at = attivR.findById(attivitaID)
-				.orElseThrow(() -> new AcademyException("Attivita non trovata"));
+				.orElseThrow(() -> new AcademyException("attiv-ntfnd"));
 		if (!at.getAbbonamento().isEmpty())
-			throw new AcademyException("Attivita con abbonamenti"); 
+			throw new AcademyException("attiv-abbo-fnd"); 
 		attivR.delete(at);
 
 
