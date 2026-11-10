@@ -179,6 +179,24 @@ public class SocioControllerTest {
 			.andExpect(status().isOk());
 	}
 	
-	
+	@Test
+	@Order(9)
+	public void ListAllRest() throws Exception{
+		log.debug("ListRest");
+		
+		MvcResult result = mockMvc.perform(get("/rest/socio/list")
+				)
+				.andExpect(status().isOk())
+				.andReturn();
+		
+		String json = result.getResponse().getContentAsString();
+		List<SocioDTO> lS = objectMapper.readValue(
+				json,
+				new TypeReference<List<SocioDTO>> () {
+				});
+		
+		assertFalse(lS.isEmpty());
+		lS.forEach(s -> log.debug(s.toString()));
+	}
 	
 }
