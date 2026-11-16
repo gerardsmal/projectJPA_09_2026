@@ -13,6 +13,7 @@ public interface ISocioServices {
 	List<SocioDTO> list(Integer id, String nome, String cognome, Integer attivita) throws Exception;
 
 	List<SocioDTO>  listByCognome(String cognome) throws Exception;
-	List<SocioDTO>  listByAttivita(Integer attivitaID) throws Exception;
+	List<SocioDTO>  listByAttivita(Integer attivitaID) throws Exception;   
+	List<SocioDTO>  listCertificatoScaduto() throws Exception;   
 	SocioDTO getById(Integer id) throws Exception;
 }

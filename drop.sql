@@ -26,3 +26,5 @@
     drop table if exists messaggi_systema;
 
     drop table if exists socio_palestra;
+
+    drop table if exists utente;

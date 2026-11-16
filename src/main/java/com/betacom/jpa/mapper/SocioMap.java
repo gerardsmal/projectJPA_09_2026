@@ -13,7 +13,7 @@ public class SocioMap {
 				.id(s.getId())
 				.cognome(s.getCognome())
 				.nome(s.getNome())
-				.codiceFiascale(s.getCodiceFiscale())
+				.codiceFiscale(s.getCodiceFiscale())
 				.email(s.getEmail())
 				.certificato(s.getCertificato() == null ? null : CertificatoDTO.builder()
 						.id(s.getCertificato().getId())

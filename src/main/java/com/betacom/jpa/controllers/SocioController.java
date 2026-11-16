@@ -44,7 +44,13 @@ public class SocioController {
 
 		return ResponseEntity.ok(socioS.getById(id));
 	}
+	
+	@GetMapping("/listCertificatoScaduto")
+	public ResponseEntity<Object> listCertificatoScaduto() throws Exception{
 
+		return ResponseEntity.ok(socioS.listCertificatoScaduto());
+	}
+	
 	@GetMapping("/listByCognome")
 	public ResponseEntity<Object> listByCognome(@RequestParam String cognome)
 			throws Exception{

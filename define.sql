@@ -43,6 +43,14 @@
         primary key (id)
     ) engine=InnoDB;
 
+    create table utente (
+        role tinyint check ((role between 0 and 1)),
+        email varchar(255),
+        pwd varchar(255),
+        user_name varchar(255) not null,
+        primary key (user_name)
+    ) engine=InnoDB;
+
     alter table socio_palestra 
        add constraint UKc50sxuty0tgtsra75twkb7o1v unique (certificato_id);
 

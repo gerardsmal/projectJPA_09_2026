@@ -1,5 +1,7 @@
 package com.betacom.jpa.services.implmentations;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,7 @@ public class SocioImpl implements ISocioServices{
 	@Transactional
 	@Override
 	public void create(SocioReq req) throws Exception {
-		log.debug("create ()", req);
+		log.debug("create {}", req);
 		if (socioR.existsByCodiceFiscale(req.getCodiceFiscale()))
 			throw new AcademyException("cfisc-fnd");
 		
@@ -100,6 +102,18 @@ public class SocioImpl implements ISocioServices{
 		Socio soc = socioR.findById(id)
 				.orElseThrow(() -> new AcademyException("socio-ntfnd"));
 		return SocioMap.buildSocioDTO(soc);
+	}
+
+	@Override
+	public List<SocioDTO> listCertificatoScaduto() throws Exception {
+		log.debug("listCertificatoScaduto");
+		List<Socio> lS = socioR.findAll();
+		List<Socio> r = lS.stream()
+			    .filter(s -> s.getCertificato() == null ||
+			        s.getCertificato().getDataCerticifato().plusYears(1)
+			            .isBefore(LocalDate.now()))
+			    .toList();
+		return SocioMap.buildSocioDTO(r);
 	}
 	
 

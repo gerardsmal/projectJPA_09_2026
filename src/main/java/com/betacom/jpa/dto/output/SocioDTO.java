@@ -19,7 +19,7 @@ public class SocioDTO {
 	private Integer id;
 	private String cognome;
 	private String nome;
-	private String codiceFiascale;;
+	private String codiceFiscale;
 	private String email;
 	private CertificatoDTO certificato;
 	private List<AbbonamentoDTO> abbonamento;

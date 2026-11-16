@@ -40,7 +40,7 @@ public class SocioServiceTest {
 			socioS.create(req);
 			List<SocioDTO> lS = socioS.list(null, null, null, null);
 			SocioDTO socioCreated = lS.stream()
-					.filter(s -> "PV111111".equals(s.getCodiceFiascale()))
+					.filter(s -> "PV111111".equals(s.getCodiceFiscale()))
 					.findFirst()
 					.orElseThrow(() -> new AssertionError("Socio non trovato"));
 			
@@ -56,7 +56,7 @@ public class SocioServiceTest {
 			socioS.create(req);
 			lS = socioS.list(null, null, null, null);
 			socioCreated = lS.stream()
-					.filter(s -> "ML2222222".equals(s.getCodiceFiascale()))
+					.filter(s -> "ML2222222".equals(s.getCodiceFiscale()))
 					.findFirst()
 					.orElseThrow(() -> new AssertionError("Socio non trovato"));
 			Assertions.assertThat(socioCreated.getCognome()).isEqualTo("Laverdura");
