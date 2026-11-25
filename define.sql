@@ -33,6 +33,15 @@
         primary key (lang, code)
     ) engine=InnoDB;
 
+    create table persone_angular (
+        id integer not null auto_increment,
+        cognome varchar(100) not null,
+        nome varchar(100) not null,
+        colore varchar(255),
+        email varchar(255),
+        primary key (id)
+    ) engine=InnoDB;
+
     create table socio_palestra (
         certificato_id integer,
         id integer not null auto_increment,
