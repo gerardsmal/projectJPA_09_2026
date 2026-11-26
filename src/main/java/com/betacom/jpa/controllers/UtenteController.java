@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.betacom.jpa.dto.input.LoginReq;
 import com.betacom.jpa.dto.input.UtenteReq;
 import com.betacom.jpa.dto.input.ValidationGroup;
 import com.betacom.jpa.dto.output.ResponseDTO;
@@ -41,4 +42,13 @@ public class UtenteController {
 						throws Exception{
 			return ResponseEntity.ok(utS.list());
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<Object> login (
+			@Validated(ValidationGroup.Create.class)
+			@RequestBody LoginReq req) throws Exception{
+		return ResponseEntity.ok(utS.login(req));
+		
+	}
+			
 }

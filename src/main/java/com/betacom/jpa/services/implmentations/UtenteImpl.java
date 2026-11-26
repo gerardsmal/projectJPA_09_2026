@@ -1,3 +1,4 @@
+
 package com.betacom.jpa.services.implmentations;
 
 import java.util.List;
@@ -5,7 +6,9 @@ import java.util.List;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.betacom.jpa.dto.input.LoginReq;
 import com.betacom.jpa.dto.input.UtenteReq;
+import com.betacom.jpa.dto.output.LoginDTO;
 import com.betacom.jpa.dto.output.UtenteDTO;
 import com.betacom.jpa.enums.Roles;
 import com.betacom.jpa.exceptions.AcademyException;
@@ -63,6 +66,20 @@ public class UtenteImpl implements IUtenteServices{
 	public UtenteDTO getByUserName(String userName) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public LoginDTO login(LoginReq req) throws Exception {
+		log.debug("login {}", req);
+		Utente ut = utR.findById(req.getUserName())
+				.orElseThrow(() -> new AcademyException("UserName/Password invalido"));
+		if (!passwordEncoder.matches(req.getPassword(), ut.getPwd()))
+			throw new AcademyException("UserName/Password invalido");
+		
+		
+		return LoginDTO.builder()
+				.role(ut.getRole().toString())
+				.build();
 	}
 
 }
